@@ -1,0 +1,4 @@
+runtime 'perl'
+exec 'iron-pl.pl'
+
+dir 'local/lib/perl5'
