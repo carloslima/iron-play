@@ -38,23 +38,24 @@ For that we will use [Carton](https://metacpan.org/pod/Carton) and list everythi
 
 ## Add tasks to the queue
 
-    $ iron_worker queue iron-pl -p '{"ironing":"board"}'
+    $ iron_worker queue iron-pl -p '{"tags":["iron.io","perl"]}'
         ------> Creating client
                 Project 'ironing-board' with id='5277a2b987a3b90005000044'
         ------> Queueing task
-                Code package 'iron-pl' queued with id='5277b647d16f933601092a4e'
-                Check 'https://hud.iron.io/tq/projects/5277a2b987a3b90005000044/jobs/5277b647d16f933601092a4e' for more info
+                Code package 'iron-pl' queued with id='5277ca9ed16f93360109d0aa'
+                Check 'https://hud.iron.io/tq/projects/5277a2b987a3b90005000044/jobs/5277ca9ed16f93360109d0aa' for more info
+
 
 ## Check results
 
 We can either go straight to the web interface using the url listed above or use their management tool:
 
-    $ iron_worker log 5277b647d16f933601092a4e
+        $ iron_worker log 5277ca9ed16f93360109d0aa
         ------> Creating client
                 Project 'ironing-board' with id='5277a2b987a3b90005000044'
-        ------> Getting log for task with id='5277b647d16f933601092a4e'
+        ------> Getting log for task with id='5277ca9ed16f93360109d0aa'
         Iron-Play v0.0.1
-        2013-11-04T14:59:23
+        2013-11-04T16:26:10
         Environment: {
             HOME              "/task",
             LANG              "en_US.UTF-8",
@@ -65,7 +66,7 @@ We can either go straight to the web interface using the url listed above or use
             PATH              ".:./bin:./__debs__/usr/bin:./__debs__/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games",
             PWD               "/task",
             SHELL             "/bin/sh",
-            SUDO_COMMAND      "/usr/bin/ruby run.rb --sleep 240 -e production -n 4 -j /mnt/iron-jail",
+            SUDO_COMMAND      "/usr/bin/ruby run.rb --sleep 60 -e production -n 1 -j /mnt/iron-jail",
             SUDO_GID          1000,
             SUDO_UID          1000,
             SUDO_USER         "ubuntu",
@@ -76,11 +77,24 @@ We can either go straight to the web interface using the url listed above or use
         Arguments: {
             -d         "/task/",
             -e         "production",
-            -id        "5277b647d16f933601092a4e",
+            -id        "5277ca9ed16f93360109d0aa",
             -payload   "/task/task_payload.json"
         }
         Payload (/task/task_payload.json): \ {
-            ironing   "board"
+            tags   [
+                [0] "iron.io",
+                [1] "perl"
+            ]
         }
-        Doing work (2): ..
+
+        Top users for tag 'iron.io':
+        AnaelFavre: 417
+        thousandsofthem: 446
+        Travis R: 6935
+
+        Top users for tag 'perl':
+        ikegami: 106098
+        mpapec: 10324
+        TLP: 40585
+
         Done.
